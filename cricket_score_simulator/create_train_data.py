@@ -42,8 +42,8 @@ def binary_feature_encoder(column_name:str):
 ## -->> batting_experience,bowler_experience
 
 venue_df_encoded = binary_feature_encoder("venue")
-curr_innings_df_encoded = binary_feature_encoder("batsman")
-bowling_team_df_encoded = binary_feature_encoder("current_innings")
+curr_innings_df_encoded = binary_feature_encoder("current_innings")
+bowling_team_df_encoded = binary_feature_encoder("bowling_team_name")
 innings_type_df_encoded = binary_feature_encoder("innings_type")
 batsman_df_encoded = binary_feature_encoder("batsman")
 bowler_df_encoded = binary_feature_encoder("bowler")
@@ -56,7 +56,7 @@ out_batsman_df_encoded = binary_feature_encoder("out_batsman")
 
 
 ################ Getting all the numerical Features ####################
-df_num_data = df2[["curr_score","curr_wickers",'batsman_score', 'balls_faced_batsman',\
+df_num_data = df2[["over","curr_score","curr_wickers",'batsman_score', 'balls_faced_batsman',\
     'batsman_strike_rate',"runs_conceded_by_bowler",
     'balls_bowled_bowler', 'wickets_by_bower',\
     'bowler_economy', 'batsman_prop0', 'batsman_prop1', 'batsman_prop2',\
@@ -104,7 +104,10 @@ final_trainable_df = pd.concat([venue_df_encoded, curr_innings_df_encoded,\
                               bowling_exp_df_encoded,\
                             out_batsman_df_encoded,df_num_data], axis=1)
 
-final_trainable_df.to_csv("Final_T20_trainable.csv",index=False)
+final_trainable_df["outcome"] = outcome_labels
+
+final_trainable_df.to_csv("/home/shivargha/cricket_analytics/cricket_score_simulator/Final_T20_trainable.csv",\
+                    index=False)
 
 
 
