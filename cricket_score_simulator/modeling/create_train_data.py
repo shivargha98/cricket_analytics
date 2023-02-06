@@ -13,7 +13,7 @@ df2 = pd.read_csv("/home/shivargha/cricket_analytics/T20_cricket/t20is3.csv")
 'batsman', 'non_striker', 'bowler',
 'curr_score', 'curr_wickers',
 'current_run_rate', 'req_run_rate',
-'out','super_over','batsman_score', runs_conceded_by_bowler
+'super_over','batsman_score', runs_conceded_by_bowler
 'balls_faced_batsman', 'batsman_strike_rate',
 'balls_bowled_bowler', 'wickets_by_bower',
 'bowler_economy', 'batsman_prop0', 'batsman_prop1', 'batsman_prop2',
