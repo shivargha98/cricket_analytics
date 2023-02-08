@@ -115,7 +115,9 @@ if len(countries_selected) > 1:
 
     batsman_dict = {}
     bowler_dict = {}
+    innings_dict={}
     over = []
+    counter = 0
     ################ innings 1 ##############################
     innings_number = 1
     for over in range(0,20):
@@ -138,11 +140,49 @@ if len(countries_selected) > 1:
 
                     batting_exp_encoding = get_batting_experience(select_striker)
                     bowling_exp_encoding = get_bowler_experience(select_bowler)
-
+                    
                     explosivity_rating,running_rating,powerplay_rating,end_over_explosivity = get_batsman_stats(select_striker)
                     wicket_taking_rating,bowling_consistency_rating = get_bowler_stats(select_bowler)
-
                     
+                    if counter == 0:
+                        curr_score,curr_wickets = 0,0
+                        
+
+                        ### add batsman personal_score###
+                        striker_score,balls_faced_batsman,batsman_strike_rate = 0,0,0
+
+                        #####bowler by ball records##
+                        runs_conceded_by_bowler,balls_bowled_bowler,wickets_by_bowler=0,0,0 
+                        wickets_by_bowler,bowler_economy = 0,0
+
+                        ###### batsman proportions#######
+                        batsman_prop0,batsman_prop1,batsman_prop2,batsman_prop3 = 0,0,0,0
+                        batsman_prop4,batsman_prop5,batsman_prop6,batsman_prop7 = 0,0,0,0
+
+                        ####### bowler proportions ########
+                        bowler_prop0,bowler_prop1,bowler_prop2,bowler_prop3 =0,0,0,0
+                        bowler_prop4, bowler_prop5,bowler_prop6,bowler_prop7 = 0,0,0,0
+                        bowler_prop8 = 0
+
+                        ####create array for first prediction###
+                        data_encoded = np.concatenate((venue_encodings,curr_inn_team_encoding,\
+                            bowling_team_encoding,curr_inn_type_encoding,striker_encoding,
+                            bowler_encoding,non_striker_encoding,super_encodings,
+                            batting_exp_encoding,bowling_exp_encoding),axis=0)
+                        
+                        np.append(data_encoded,[curr_score,curr_wickets,striker_score,\
+                         balls_faced_batsman,batsman_strike_rate,\
+                         runs_conceded_by_bowler,balls_bowled_bowler,wickets_by_bowler,\
+                        bowler_economy,batsman_prop0,batsman_prop1,batsman_prop2,\
+                        batsman_prop3,batsman_prop4,batsman_prop5,batsman_prop6,\
+                        batsman_prop7,bowler_prop0,bowler_prop1,bowler_prop2,bowler_prop3,\
+                        bowler_prop4,bowler_prop5,bowler_prop6,\
+                        bowler_prop7,bowler_prop8,explosivity_rating,\
+                        running_rating,powerplay_rating,end_over_explosivity,\
+                        wicket_taking_rating,bowling_consistency_rating])
+
+
+
         
 
         

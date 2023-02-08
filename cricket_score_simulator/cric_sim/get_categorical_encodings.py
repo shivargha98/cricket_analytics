@@ -89,6 +89,13 @@ def get_batting_experience(batsman):
          'batting_experience_1']].iloc[0].values
     return encodings
 
+def get_out_batsman_encoding(batsman):
+
+    df[df["out_batsman"]==batsman][['out_batsman_0', 'out_batsman_1', 
+    'out_batsman_2', 'out_batsman_3', 
+    'out_batsman_4', 'out_batsman_5', 'out_batsman_6', 'out_batsman_7', 
+    'out_batsman_8', 'out_batsman_9', 'out_batsman_10', 'out_batsman_11']].iloc[0].values
+
 def get_bowler_experience(bowler):
     encodings = df[df["bowler"]==bowler][['bowler_experience_0', \
         'bowler_experience_1']].iloc[0].values
