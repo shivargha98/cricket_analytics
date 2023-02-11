@@ -1,6 +1,7 @@
 import streamlit as st
 import random
-from cricket_score_simulator.cric_sim.get_categorical_encodings import *
+from get_categorical_encodings import *
+from model_inference import *
 st.title("T20 Internationals Simulator App")
 
 #countries_selected = ["None","None"]
@@ -88,7 +89,7 @@ if len(countries_selected) > 1:
     col3,col4 = st.columns(2)
     with col3:
         select_striker = st.multiselect(
-            'Select Your Striker  for {} team'.format(countries_selected[0]),
+            'Select Your Striker  for {} team'.format(bat_first_team),
             team1,
             key=3,
             max_selections = 2
@@ -96,7 +97,7 @@ if len(countries_selected) > 1:
         if len(select_striker) > 0:
             team1_copy.remove(select_striker[0])
         select_non_striker = st.multiselect(
-            'Select Your Striker  for {} team'.format(countries_selected[0]),
+            'Select Your Non Striker  for {} team'.format(bat_first_team),
             team1,
             key=4,
             max_selections = 2
@@ -107,7 +108,7 @@ if len(countries_selected) > 1:
         
     with col4:
         select_bowler = st.multiselect(
-            'Select Your Striker  for {} team'.format(countries_selected[1]),
+            'Select Your Bowler  for {} team'.format(bat_second_team),
             team2,
             key=5,
             max_selections = 2
@@ -120,12 +121,12 @@ if len(countries_selected) > 1:
     counter = 0
     ################ innings 1 ##############################
     innings_number = 1
-    for over in range(0,20):
+    for over_num in range(0,20):
         for ball in range(1,7):
             if (len(select_striker) > 0) and (len(select_non_striker)>0):
                 if (len(select_bowler) > 0):
                     venue_encodings = get_venue_encodings(venue_selected)
-                    over = float(str(over)+"."+str(ball))
+                    over = float(str(over_num)+"."+str(ball))
                     if innings_number == 1:
                         curr_inn_type_encoding = get_innings_type_encoding(innings_number)
                     elif innings_number == 2:
@@ -133,16 +134,16 @@ if len(countries_selected) > 1:
                     
                     curr_inn_team_encoding = get_current_innings_encodings(bat_first_team)
                     bowling_team_encoding = get_bowling_innings_encodings(bat_second_team)
-                    striker_encoding = get_batsman_encodings(select_striker)
-                    non_striker_encoding = get_non_striker_encodings(select_non_striker)
-                    bowler_encoding = get_bowler_encodings(select_bowler)
+                    striker_encoding = get_batsman_encodings(select_striker[0])
+                    non_striker_encoding = get_non_striker_encodings(select_non_striker[0])
+                    bowler_encoding = get_bowler_encodings(select_bowler[0])
                     super_encodings = get_super_over_encodings("No")
 
-                    batting_exp_encoding = get_batting_experience(select_striker)
-                    bowling_exp_encoding = get_bowler_experience(select_bowler)
+                    batting_exp_encoding = get_batting_experience(select_striker[0])
+                    bowling_exp_encoding = get_bowler_experience(select_bowler[0])
                     
-                    explosivity_rating,running_rating,powerplay_rating,end_over_explosivity = get_batsman_stats(select_striker)
-                    wicket_taking_rating,bowling_consistency_rating = get_bowler_stats(select_bowler)
+                    explosivity_rating,running_rating,powerplay_rating,end_over_explosivity = get_batsman_stats(select_striker[0])
+                    wicket_taking_rating,bowling_consistency_rating = get_bowler_stats(select_bowler[0])
                     
                     if counter == 0:
                         curr_score,curr_wickets = 0,0
@@ -170,7 +171,7 @@ if len(countries_selected) > 1:
                             bowler_encoding,non_striker_encoding,super_encodings,
                             batting_exp_encoding,bowling_exp_encoding),axis=0)
                         
-                        np.append(data_encoded,[curr_score,curr_wickets,striker_score,\
+                        data_encoded = np.append(data_encoded,[over,curr_score,curr_wickets,striker_score,\
                          balls_faced_batsman,batsman_strike_rate,\
                          runs_conceded_by_bowler,balls_bowled_bowler,wickets_by_bowler,\
                         bowler_economy,batsman_prop0,batsman_prop1,batsman_prop2,\
@@ -180,6 +181,14 @@ if len(countries_selected) > 1:
                         bowler_prop7,bowler_prop8,explosivity_rating,\
                         running_rating,powerplay_rating,end_over_explosivity,\
                         wicket_taking_rating,bowling_consistency_rating])
+
+                        print(data_encoded.shape)
+                        prediction = inference_random_forest(data_encoded.reshape(1,-1))
+                        st.write("{} bowls to {} results in {}".format(select_striker[0],
+                        select_bowler[0],
+                        prediction[0]))
+
+                        counter = counter + 1
 
 
 

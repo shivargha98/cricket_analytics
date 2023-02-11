@@ -25,7 +25,7 @@ print("DATA CREATED",data_arr.shape)
 X_train,X_test,y_train,y_test = train_test_split(data_arr,labels,test_size=0.30,random_state=42)
 ################### ###################
 
-
+print(X_test.shape)
 ########## load model ########
 model_path = "/home/shivargha/cricket_analytics/cricket_score_simulator/finalized_rf_model_v3.sav"
 clf_rf = joblib.load(model_path)
@@ -44,7 +44,7 @@ count_7s = np.count_nonzero(y_test == 7)
 count_wickets = np.count_nonzero(y_test == 8)
 ######################## #######################
 
-
+correct_num = 0
 correct_pred_dict = {0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0}
 
 for i in tqdm(range(X_test.shape[0])):

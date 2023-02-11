@@ -61,8 +61,9 @@ def get_bowling_innings_encodings(team_name):
 
 def get_batsman_encodings(batsman_name):
 
-    encodings = df[df["batsman"]==batsman_name][['batsman_0', 'batsman_1', \
-    'batsman_2', 'batsman_3', 'batsman_4', 'batsman_5', 'batsman_6', \
+    #print(batsman_name)
+    encodings = df[df["batsman"]==batsman_name][['batsman_0', 'batsman_1', 
+    'batsman_2', 'batsman_3', 'batsman_4', 'batsman_5', 'batsman_6', 
     'batsman_7', 'batsman_8', 'batsman_9', 'batsman_10', 'batsman_11']].iloc[0].values
     return encodings
 
@@ -111,6 +112,6 @@ def get_batsman_stats(batsman):
 
 def get_bowler_stats(bowler):
 
-    wicket_taking_rating =  df[df["batsman"]==bowler]["wicket_taking_rating"].iloc[0]
-    bowling_consistency_rating = df[df["batsman"]==bowler]["bowling_consistency_rating"].iloc[0]
+    wicket_taking_rating =  df[df["bowler"]==bowler]["wicket_taking_rating"].iloc[0]
+    bowling_consistency_rating = df[df["bowler"]==bowler]["bowling_consistency_rating"].iloc[0]
     return wicket_taking_rating,bowling_consistency_rating
