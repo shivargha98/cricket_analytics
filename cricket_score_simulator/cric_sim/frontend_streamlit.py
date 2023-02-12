@@ -181,8 +181,8 @@ if len(countries_selected) > 1:
                         bowler_prop7,bowler_prop8,explosivity_rating,\
                         running_rating,powerplay_rating,end_over_explosivity,\
                         wicket_taking_rating,bowling_consistency_rating])
-
-                        print(data_encoded.shape)
+                        ##################################
+                        #print(data_encoded.shape)
                         prediction = inference_random_forest(data_encoded.reshape(1,-1))
                         st.write("{} bowls to {} results in {}".format(select_striker[0],
                         select_bowler[0],
