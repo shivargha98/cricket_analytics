@@ -8,6 +8,7 @@ from keras.models import Model
 from keras.layers import Input,Dropout
 from keras.layers import Dense,BatchNormalization
 from keras.utils import to_categorical
+import tensorflow_addons as tfa 
 
 df = pd.read_csv("Final_T20_trainable.csv")
 
@@ -84,12 +85,17 @@ output_layer = Dense(7,activation="softmax")(x)
 model = Model(inputs=input_layer, outputs=output_layer)
 model.compile(optimizer="adam", loss=keras.losses.CategoricalCrossentropy(), metrics="acc")
 
+f1 = tfa.metrics.F1Score(7,'weighted')
+
+model = Model(inputs=input_layer, outputs=output_layer)
+model.compile(optimizer="adam", loss=keras.losses.CategoricalCrossentropy(), metrics=[f1])
+
 ########### callbacks #######
 my_callbacks = [
-    keras.callbacks.ModelCheckpoint(filepath='model_13_02_23_2.h5',monitor="val_loss",\
-    save_best_only=True,mode="min")
+    keras.callbacks.ModelCheckpoint(filepath='model_13_02_23_4.h5',monitor="val_f1_score",\
+    save_best_only=True,mode="max",verbose=True)
 ]
 ########################
 #weight_classes = {0:1,1:1,2:}
 model.fit(X_train,y_train,batch_size=32,epochs=100,callbacks=my_callbacks,\
-        validation_data=(X_test,y_test),class_weight=class_weights)
+        validation_data=(X_test,y_test))

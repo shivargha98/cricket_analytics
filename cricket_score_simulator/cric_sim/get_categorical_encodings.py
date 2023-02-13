@@ -115,3 +115,15 @@ def get_bowler_stats(bowler):
     wicket_taking_rating =  df[df["bowler"]==bowler]["wicket_taking_rating"].iloc[0]
     bowling_consistency_rating = df[df["bowler"]==bowler]["bowling_consistency_rating"].iloc[0]
     return wicket_taking_rating,bowling_consistency_rating
+
+def get_probabilities():
+
+    prob0s = len(df[df["outcome"] == 0])/len(df)
+    prob1s = len(df[df["outcome"] == 1])/len(df)
+    prob2s = len(df[df["outcome"] == 2])/len(df)
+    prob3s = len(df[df["outcome"] == 3])/len(df)
+    prob4s = len(df[df["outcome"] == 4])/len(df)
+    prob6s = len(df[df["outcome"] == 6])/len(df)
+    probWs = len(df[df["outcome"] == 8])/len(df)
+
+    return [prob0s,prob1s,prob2s,prob3s,prob4s,prob6s,probWs]
