@@ -56,7 +56,8 @@ out_batsman_df_encoded = binary_feature_encoder("out_batsman")
 
 
 ################ Getting all the numerical Features ####################
-df_num_data = df2[["over","curr_score","curr_wickers",'batsman_score', 'balls_faced_batsman',\
+df_num_data = df2[["over","curr_score","curr_wickers",'current_run_rate', 'req_run_rate',\
+    'batsman_score', 'balls_faced_batsman',\
     'batsman_strike_rate',"runs_conceded_by_bowler",
     'balls_bowled_bowler', 'wickets_by_bower',\
     'bowler_economy', 'batsman_prop0', 'batsman_prop1', 'batsman_prop2',\
