@@ -45,7 +45,7 @@ def create_card(title, value, suffix=""):
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv('./deliveries.csv')
+    df = pd.read_csv('./ipl_dashboard/deliveries.csv')
     
     # Phase Classification
     def get_phase(over):
