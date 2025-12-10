@@ -1,6 +1,5 @@
 *.json
 *.yaml
-*.csv
 T20_cricket/*
 odi_cricket/*
 *.sav
