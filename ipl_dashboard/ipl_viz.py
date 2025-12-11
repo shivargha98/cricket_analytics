@@ -1140,7 +1140,7 @@ elif analysis_mode == "Head-to-Head Clash":
 
             h2h['color'] = h2h.apply(get_color, axis=1)
             
-            # 2. Create Dual-Axis Plot
+            #  Dual-Axis Plot
             fig_timeline = make_subplots(specs=[[{"secondary_y": True}]])
 
             # LAYER 1: The Bars (Runs per Ball) - Primary Y Axis
@@ -1194,7 +1194,7 @@ elif analysis_mode == "Head-to-Head Clash":
 
             # 3. Layout Polish
             fig_timeline.update_layout(
-                title=None,
+                title="Runs per ball Sequence",
                 template="plotly_dark",
                 showlegend=True,
                 legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
@@ -1243,7 +1243,7 @@ elif analysis_mode == "Head-to-Head Clash":
     st.markdown("---")
     st.markdown("## 🧠 Deep Dive Analytics")
 
-    # --- SECTION 1: OUTCOME PROBABILITY HEATMAP ---
+    # OUTCOME PROBABILITY HEATMAP ---
     # We calculate the % chance of every specific outcome for this matchup
     st.subheader("Outcome Probability Distribution")
     
@@ -1277,11 +1277,11 @@ elif analysis_mode == "Head-to-Head Clash":
     st.plotly_chart(fig_heat, use_container_width=True)
 
 
-    # --- SECTION 2: CONTEXT SCATTER (Batter vs All Bowlers) ---
+    # CONTEXT SCATTER (Batter vs All Bowlers) ---
     st.subheader(f"{batter}'s Performance vs Different Bowlers")
     st.caption("See how this bowler compares to everyone else this batter has faced.")
 
-    # 1. Get stats for this batter against ALL bowlers
+    # Get stats for this batter against ALL bowlers
     batter_all = df[df['batter'] == batter]
     stats_list = []
 
@@ -1327,7 +1327,7 @@ elif analysis_mode == "Head-to-Head Clash":
         st.plotly_chart(fig_scatter, use_container_width=True)
 
 
-    # --- SECTION 4: CONSISTENCY PLOT ---
+    # CONSISTENCY PLOT ---
     st.subheader("Match-by-Match Consistency")
     
     # Group by Match ID to separate meetings
