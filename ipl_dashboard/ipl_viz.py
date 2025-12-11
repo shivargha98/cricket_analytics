@@ -1243,7 +1243,7 @@ elif analysis_mode == "Head-to-Head Clash":
 
     # CONTEXT SCATTER (Batter vs All Bowlers) ---
     st.subheader(f"{batter}'s Performance vs Different Bowlers")
-    st.caption("See how this bowler compares to everyone else this batter has faced.")
+    st.caption("See how this bowler compares to everyone else this batter has faced.(Min 10 balls)")
 
     # Get stats for this batter against ALL bowlers
     batter_all = df[df['batter'] == batter]
