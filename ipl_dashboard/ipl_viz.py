@@ -1240,42 +1240,6 @@ elif analysis_mode == "Head-to-Head Clash":
 
 
 
-    st.markdown("---")
-    st.markdown("## 🧠 Deep Dive Analytics")
-
-    # OUTCOME PROBABILITY HEATMAP ---
-    # We calculate the % chance of every specific outcome for this matchup
-    st.subheader("Outcome Probability Distribution")
-    
-    outcomes = [0, 1, 2, 3, 4, 6]
-    prob_data = []
-    
-    # Calculate percentages
-    total_balls = len(h2h)
-    for r in outcomes:
-        count = len(h2h[h2h['batsman_runs'] == r])
-        prob = (count / total_balls) * 100 if total_balls > 0 else 0
-        prob_data.append({'Outcome': str(r), 'Probability': prob})
-        
-    # Add Wicket Probability
-    w_count = len(h2h[h2h['is_wicket'] == 1])
-    w_prob = (w_count / total_balls) * 100 if total_balls > 0 else 0
-    prob_data.append({'Outcome': 'W', 'Probability': w_prob})
-
-    prob_df = pd.DataFrame(prob_data)
-    
-    # Create a single-row heatmap
-    fig_heat = go.Figure(data=go.Heatmap(
-        z=[prob_df['Probability']],
-        x=prob_df['Outcome'],
-        y=['Probability %'],
-        colorscale='Viridis',
-        texttemplate="%{z:.1f}%",
-        showscale=False
-    ))
-    fig_heat.update_layout(title="Shot Outcome Probability Grid", height=150, margin=dict(l=20, r=20, t=40, b=20))
-    st.plotly_chart(fig_heat, use_container_width=True)
-
 
     # CONTEXT SCATTER (Batter vs All Bowlers) ---
     st.subheader(f"{batter}'s Performance vs Different Bowlers")
